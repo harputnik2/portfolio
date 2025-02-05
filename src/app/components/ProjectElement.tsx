@@ -22,8 +22,7 @@ export const ProjectElement = ({
     description,
     link,
     icon: Icon,
-    dashedStyle,
-    motionless = false,
+    illustration,
     totalCount = 0,
     index = 0,
     isHovered,
@@ -37,49 +36,21 @@ export const ProjectElement = ({
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
-        if (motionless) return;
-        //
-        // const originalX = center + radius * Math.cos(angle) - bubbleSize / 2;
-        // const originalY = center + radius * Math.sin(angle) - bubbleSize / 2;
-
-        let animationFrame: number;
         let interval: NodeJS.Timeout;
 
-        // const updatePosition = () => {
-        //     setTargetX((prevX) => {
-        //         const driftX = (Math.random() - 0.5) * 40; // Increase wander amplitude to [-20, 20]
-        //         const newX = prevX + driftX;
-        //         return Math.max(originalX - 20, Math.min(originalX + 20, newX)); // Increase bounds
-        //     });
-        //
-        //     setTargetY((prevY) => {
-        //         const driftY = (Math.random() - 0.5) * 40; // Increase wander amplitude
-        //         const newY = prevY + driftY;
-        //         return Math.max(originalY - 20, Math.min(originalY + 20, newY)); // Increase bounds
-        //     });
-        //
-        //     animationFrame = requestAnimationFrame(updatePosition);
-        // };
-
-        if (isHovered) {
-            // animationFrame = requestAnimationFrame(updatePosition);
-        } else {
-            const angleAddition = isHovered ? -0.04 : 0.006; // Reduce orbit speed
+        if (!isHovered) {
+            const angleAddition = isHovered ? -0.04 : 0.006;
             interval = setInterval(() => {
                 setAngle((prevAngle) => prevAngle + angleAddition);
                 setTargetX(center + radius * Math.cos(angle) - bubbleSize / 2);
                 setTargetY(center + radius * Math.sin(angle) - bubbleSize / 2);
-            }, 100); // Slow down orbit updates
+            }, 100);
         }
 
         return () => {
-            if (animationFrame) cancelAnimationFrame(animationFrame);
             clearInterval(interval);
         };
     }, [isHovered, angle]);
-
-
-    const appearance = dashedStyle ? "border border-2 border-beetroot bg-black" : "bg-beetroot";
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -90,7 +61,7 @@ export const ProjectElement = ({
         <>
             <MotionDiv
                 className="absolute"
-                animate={motionless ? {} : { x: targetX, y: targetY }}
+                animate={{ x: targetX, y: targetY }}
                 transition={{
                     duration: isHovered ? 1 : 0.2,
                     ease: "easeInOut",
@@ -99,7 +70,7 @@ export const ProjectElement = ({
             >
                 <div
                     onClick={() => openModal()}
-                    className={`hover:scale-105 transition ease-in p-4 text-center rounded-full text-white cursor-pointer ${appearance}`}
+                    className={`hover:scale-105 transition ease-in p-4 text-center rounded-full text-white cursor-pointer bg-beetroot`}
                     style={{ width: bubbleSize, height: bubbleSize }}
                 >
                     {Icon && <Icon className="w-6 h-6 mx-auto mt-6" />}
@@ -113,6 +84,7 @@ export const ProjectElement = ({
                 title={title}
                 content={description}
                 link={link}
+                illustration={illustration}
             />
         </>
     );
