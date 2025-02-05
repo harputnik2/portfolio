@@ -16,6 +16,22 @@
 
 body {
   color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background: black;
+  font-family: 'Roboto Mono', Arial, Helvetica, sans-serif;
+  background-image: url('bg.jpg');
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: 50%;
+}
+
+.text-beetroot {
+  color: #c67d98;
+}
+
+.bg-beetroot {
+  background-color: #c67d98;
+}
+
+.border-beetroot {
+    border-color: #c67d98;
 }
