@@ -15,6 +15,8 @@ type Project = {
 type PlacedProject = Project & {
     x?: number;
     y?: number;
+    isHovered?: boolean;
+    index?: number;
 };
 
 const projects: Project[] = [
@@ -34,7 +36,7 @@ export const Content = () => {
 
     return (
         <div
-            className="relative border-beetroot border-dashed border-2 rounded-full"
+            className="relative border-beetroot border-dashed border-2 rounded-full shrink-0"
             style={{
                 width: center * 2,
                 height: center * 2,
@@ -53,7 +55,7 @@ export const Content = () => {
     );
 };
 
-const ProjectElement = ({ title, description, link, dashedStyle, motionless = false, index, isHovered, x, y }: PlacedProject & { index: number; isHovered: boolean }) => {
+const ProjectElement = ({ title, description, link, dashedStyle, motionless = false, index = 0, isHovered, x, y }: PlacedProject) => {
     const [angle, setAngle] = useState((index / projects.length) * 2 * Math.PI);
     const [targetX, setTargetX] = useState(center + radius * Math.cos(angle) - bubbleSize / 2);
     const [targetY, setTargetY] = useState(center + radius * Math.sin(angle) - bubbleSize / 2);
@@ -97,7 +99,7 @@ const ProjectElement = ({ title, description, link, dashedStyle, motionless = fa
     return (
         <MotionDiv
             className="absolute"
-            animate={{ x: targetX, y: targetY }}
+            animate={motionless ? {} : { x: targetX, y: targetY }}
             transition={{
                 duration: isHovered ? 1.2 : 0.2,
                 ease: "easeInOut",
@@ -106,7 +108,7 @@ const ProjectElement = ({ title, description, link, dashedStyle, motionless = fa
         >
             <a href={link} target="_blank" rel="noopener noreferrer">
                 <div
-                    className={`bg-white p-4 text-center rounded-full text-white ${appearance}`}
+                    className={`p-4 text-center rounded-full text-white ${appearance}`}
                     style={{ width: bubbleSize, height: bubbleSize }}
                 >
                     <h3 className="text-lg font-semibold">{title}</h3>

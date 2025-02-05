@@ -24,6 +24,12 @@ body {
   background-size: 50%;
 }
 
+@media screen and (max-width: 768px) {
+  body {
+    background-image: none;
+  }
+}
+
 .text-beetroot {
   color: #c67d98;
 }
