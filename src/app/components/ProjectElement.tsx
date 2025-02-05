@@ -38,38 +38,48 @@ export const ProjectElement = ({
 
     useEffect(() => {
         if (motionless) return;
+        //
+        // const originalX = center + radius * Math.cos(angle) - bubbleSize / 2;
+        // const originalY = center + radius * Math.sin(angle) - bubbleSize / 2;
 
-        const originalX = center + radius * Math.cos(angle) - bubbleSize / 2;
-        const originalY = center + radius * Math.sin(angle) - bubbleSize / 2;
-
+        let animationFrame: number;
         let interval: NodeJS.Timeout;
 
-        if (isHovered) {
-            interval = setInterval(() => {
-                setTargetX((prevX) => {
-                    const driftX = Math.random() * 20 - 5;
-                    const newX = prevX + driftX;
-                    return Math.max(originalX - 10, Math.min(originalX + 10, newX));
-                });
+        // const updatePosition = () => {
+        //     setTargetX((prevX) => {
+        //         const driftX = (Math.random() - 0.5) * 40; // Increase wander amplitude to [-20, 20]
+        //         const newX = prevX + driftX;
+        //         return Math.max(originalX - 20, Math.min(originalX + 20, newX)); // Increase bounds
+        //     });
+        //
+        //     setTargetY((prevY) => {
+        //         const driftY = (Math.random() - 0.5) * 40; // Increase wander amplitude
+        //         const newY = prevY + driftY;
+        //         return Math.max(originalY - 20, Math.min(originalY + 20, newY)); // Increase bounds
+        //     });
+        //
+        //     animationFrame = requestAnimationFrame(updatePosition);
+        // };
 
-                setTargetY((prevY) => {
-                    const driftY = Math.random() * 20 - 5;
-                    const newY = prevY + driftY;
-                    return Math.max(originalY - 10, Math.min(originalY + 10, newY));
-                });
-            }, 500);
+        if (isHovered) {
+            // animationFrame = requestAnimationFrame(updatePosition);
         } else {
+            const angleAddition = isHovered ? -0.04 : 0.006; // Reduce orbit speed
             interval = setInterval(() => {
-                setAngle((prevAngle) => prevAngle + 0.005);
+                setAngle((prevAngle) => prevAngle + angleAddition);
                 setTargetX(center + radius * Math.cos(angle) - bubbleSize / 2);
                 setTargetY(center + radius * Math.sin(angle) - bubbleSize / 2);
-            }, 50);
+            }, 100); // Slow down orbit updates
         }
 
-        return () => clearInterval(interval);
+        return () => {
+            if (animationFrame) cancelAnimationFrame(animationFrame);
+            clearInterval(interval);
+        };
     }, [isHovered, angle]);
 
-    const appearance = dashedStyle ? "border-dashed border-2 border-beetroot bg-black" : "bg-beetroot";
+
+    const appearance = dashedStyle ? "border border-2 border-beetroot bg-black" : "bg-beetroot";
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -82,7 +92,7 @@ export const ProjectElement = ({
                 className="absolute"
                 animate={motionless ? {} : { x: targetX, y: targetY }}
                 transition={{
-                    duration: isHovered ? 1.2 : 0.2,
+                    duration: isHovered ? 1 : 0.2,
                     ease: "easeInOut",
                 }}
                 style={{ x: x || targetX, y: y || targetY, width: bubbleSize, height: bubbleSize }}

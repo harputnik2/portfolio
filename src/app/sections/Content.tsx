@@ -2,14 +2,39 @@
 import { useState } from "react";
 import {ProjectElement} from "@/app/components";
 import {Project} from "@/app/types";
-import { Share2, Home, Settings, Map, BookOpen } from "react-feather";
+import { Share2, Home, Settings, Map, BookOpen, FileText } from "react-feather";
 
 const projects: Project[] = [
-    { title: "The Swarm App", description: "Connections Network Management SaaS", link: "https://app.theswarm.com", icon: Share2 },
-    { title: "Mattermotion", description: "Company Portfolio built on top of headless cms", link: "https://mattermotion.com/robocza/", icon: Home },
-    { title: "Bike Studio", description: "Tool for bike customization - 5 sprites, endless combinations", link: "http://smialy.bdl.pl/bike-studio/", icon: Settings },
-    { title: "Bee Tale", description: "JS animation created in Adobe Edge", link: "http://smialy.bdl.pl/bee/", icon: BookOpen },
-    { title: "Peace Health Rides", description: "One of many Bike Network landing pages. Operating in Eugene, Oregon", link: "https://www.peacehealthrides.com/", icon: Map },
+    {
+        title: "The Swarm App",
+        description: "Network Management SaaS. Major stack: Tanstack Table and Tanstack Query. My biggest quests in this project included user onboarding, content filters, user-customizable columns, table bulk actions and tags feature.",
+        link: "https://app.theswarm.com",
+        icon: Share2
+    },
+    {
+        title: "Mattermotion",
+        description: "My husband's company page. Previously fed by and hosted on Netlify until a crucial image-storing addon stopped to be free. Thanks to it being a React app, I was able to easily migrate to Wordpress as a headless CMS.",
+        link: "https://mattermotion.com/",
+        icon: Home
+    },
+    {
+        title: "Bike Studio",
+        description: "SoBi, 2017. A tool for customizing bikes. Consists of six images layered on top of each other. First one is plain bike, five others contain different parts. Imported to svgs, they are being painted by ColorMatrix filter attribute manipulation. Rotation is simulated by synchronized change of sprites position.",
+        link: "http://smialy.bdl.pl/bike-studio/",
+        icon: Settings
+    },
+    {
+        title: "Bee Tale",
+        description: "JS animation created in Adobe Edge",
+        link: "http://smialy.bdl.pl/bee/",
+        icon: BookOpen
+    },
+    {
+        title: "Peace Health Rides",
+        description: "During my employment in Sobi (later doing business as JUMP) I've created quite a number of landing pages for Bike Sharing Networks. A few of originally SoBi networks are still active in the world, one of them is Peace Health Rides operating in Eugene, Oregon.",
+        link: "https://www.peacehealthrides.com/",
+        icon: Map
+    },
 ];
 
 const radius = 200;
@@ -41,6 +66,7 @@ export const Content = () => {
                 motionless
                 setIsHovered={setIsHovered}
                 isHovered
+                icon={FileText}
             />
 
             {projects.map(({ title, description, link , icon}, index) => (
