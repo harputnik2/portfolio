@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {ProjectElement} from "@/app/components";
 import {Project} from "@/app/types";
 import { Share2, Home, Settings, Map, BookOpen, FileText } from "react-feather";
+import {useIsMobile} from "@/app/hooks";
 
 const projects: Project[] = [
     {
@@ -28,7 +29,7 @@ const projects: Project[] = [
     },
     {
         title: "Bee Tale",
-        description: "Lonely Lama, 2014. Wings move a few degrees back and forth around their joints. The joints move up and down along with the body. The body moves forward, but also rotates doing a flip on its way. Every jump, dance and acrobation can be combined from basic transformations. The animation is JS, produced and enhanced with Adobe Edge.",
+        description: "Lonely Lama, 2014. Wings rotate a few degrees back and forth around their joints. The joints move up and down along with the body. The body moves forward, but also rotates doing a flip on its way. Every jump, dance and acrobation can be combined from basic transformations. The animation is JS, produced and enhanced with Adobe Edge.",
         link: "http://smialy.bdl.pl/bee/",
         illustration: 'bee.png',
         icon: BookOpen
@@ -49,7 +50,32 @@ const center = radius;
 export const Content = () => {
     const [isHovered, setIsHovered] = useState(false);
 
-    return (
+    const isMobile = useIsMobile();
+
+    return isMobile ? (
+        <div>
+            <h2 className='text-center text-lg my-4'>Projects</h2>
+            <ul className='flex flex-col gap-8'>
+                {projects.map(({ title, description, link, illustration }, index) => (
+                    <li key={index}>
+                        <h3 className='text-beetroot mb-2 text-lg'>{title}</h3>
+                        <p>{description}</p>
+                        <img src={illustration} alt={title} className="w-full mt-8" />
+                        <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-2 bg-beetroot w-full block text-center text-white px-4 py-2 rounded hover:bg-[#b25074] transition"
+                        >
+                            See Project
+                        </a>
+                    </li>
+                ))}
+            </ul>
+            <h2 className='text-center text-lg mb-4 mt-12'>My CV</h2>
+            <a href='http://smialy.bdl.pl/cv/' target='_blank' rel='noopener noreferrer' className="mt-2 bg-beetroot w-full block text-center text-white px-4 py-2 rounded hover:bg-[#b25074] transition">CV</a>
+        </div>
+        ) : (
         <div
             className="relative border-beetroot border-dashed border-2 rounded-full shrink-0"
             style={{

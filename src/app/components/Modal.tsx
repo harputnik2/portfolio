@@ -36,7 +36,7 @@ export const Modal = ({ visible, setVisible, title, content, illustration, link 
                         onClick={() => setVisible(false)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-beetroot w-full block text-center text-white px-4 py-2 rounded hover:darken transition"
+                        className="bg-beetroot w-full block text-center text-white px-4 py-2 rounded hover:bg-[#b25074] transition"
                     >
                         See Project
                     </a>
