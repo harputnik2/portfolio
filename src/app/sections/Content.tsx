@@ -54,12 +54,12 @@ export const Content = () => {
 
     return isMobile ? (
         <div>
-            <h2 className='text-center text-lg my-4'>Projects</h2>
+            <h2 className='text-white text-center text-lg my-4'>Projects</h2>
             <ul className='flex flex-col gap-8'>
                 {projects.map(({ title, description, link, illustration }, index) => (
                     <li key={index}>
                         <h3 className='text-beetroot mb-2 text-lg'>{title}</h3>
-                        <p>{description}</p>
+                        <p className='text-white text-sm'>{description}</p>
                         <img src={illustration} alt={title} className="w-full mt-8" />
                         <a
                             href={link}
@@ -72,7 +72,7 @@ export const Content = () => {
                     </li>
                 ))}
             </ul>
-            <h2 className='text-center text-lg mb-4 mt-12'>My CV</h2>
+            <h2 className='text-white text-center text-lg mb-4 mt-12'>My CV</h2>
             <a href='http://smialy.bdl.pl/cv/' target='_blank' rel='noopener noreferrer' className="mt-2 bg-beetroot w-full block text-center text-white px-4 py-2 rounded hover:bg-[#b25074] transition">CV</a>
         </div>
         ) : (

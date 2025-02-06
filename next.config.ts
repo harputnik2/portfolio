@@ -1,11 +1,11 @@
 import type { NextConfig } from "next";
 
-const nextConfig = {
+const nextConfig: NextConfig = {
     output: "export",
     images: {
         unoptimized: true,
     },
-    basePath: "/karor",
+    // basePath: "/karor",
 };
 
 export default nextConfig;
